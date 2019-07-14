@@ -1,0 +1,45 @@
+<launch>
+  <arg name="input_pcdfile" default="/home/hulu/ros/expansion/vslam/catkin_ws/3Dmap/ORB_SLAM2_maping/car_realtime/relate_car_frame/524_fe800_sp4_dense.PCD"/>
+  <arg name="output_octomapfile" default="/home/hulu/ros/expansion/vslam/catkin_ws/3Dmap/ORB_SLAM2_maping/car_realtime/relate_car_frame/524_fe800_sp4_dense.bt"/>
+  
+  <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+    <param name="latch" value="false" />
+    <!-- resolution in meters per pixel -->
+    <param name="resolution" value="0.025" />
+
+    <!-- name of the fixed frame, needs to be "/map" for SLAM -->
+    <param name="frame_id" type="string" value="/world" />
+    <param name="base_frame_id" type="string" value="/base_footprint" />
+    <param name="height_map" type="bool" value="true"/>
+
+    <param name="sensor_model/max_range" value="10.0"/>
+    <param name="sensor_model/hit"  value="0.7"/>
+    <param name="sensor_model/miss" value="0.4"/>
+    <param name="sensor_model/max"  value="0.97"/>
+    <param name="sensor_model/min"  value="0.12"/>
+
+    <param name="filter_ground" value="false"/>
+    <param name="ground_filter/distance" value="0.04"/>
+    <param name="ground_filter/angle" value="0.15"/>
+    <param name="ground_filter/plane_distance" value="0.07"/>
+
+    <!-- max/min height for occupancy 3D_octomap, should be in meters -->
+    <param name="pointcloud_max_z" value="10" />
+    <param name="pointcloud_min_z" value="-10" />
+
+    <!-- max/min height for occupancy 2D_project_map, should be in meters -->
+    <param name="occupancy_max_z" value="10" />
+    <param name="occupancy_min_z" value="0.2" />
+
+    <!--topic from where pointcloud2 messages are subscribed-->
+    <remap from="cloud_in" to="/surfel_fusion/pointcloud" />
+    <!--发布的2D占用网格地图话题-->
+    <remap from="projected_map" to="/map" />
+  </node>   
+
+  <!--用于将静态的点云地图转换为octomap，并发布静态点云地图话题-->
+  <!--node name="pcd_to_octomap" pkg="pcdtodtpublic" type="pcdpub" args="$(arg input_pcdfile) $(arg output_octomapfile)" output="screen"-->
+    <!--for data save -->
+    <!--param name="ispub_pointcloud" value="false" /--> 
+  <!--/node-->
+</launch>

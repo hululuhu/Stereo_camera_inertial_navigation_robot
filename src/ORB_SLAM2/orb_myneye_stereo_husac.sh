@@ -1,0 +1,1 @@
+rosrun ORB_SLAM2 Stereo /home/hulu/ros/expansion/vslam/catkin_ws/src/ORB_SLAM2/Vocabulary/ORBvoc.txt /home/hulu/ros/expansion/vslam/catkin_ws/src/ORB_SLAM2/config/mynteye_d_stereo.yaml false /camera/left/image_raw:=/mynteye/left/image_rect /camera/right/image_raw:=/mynteye/right/image_rect

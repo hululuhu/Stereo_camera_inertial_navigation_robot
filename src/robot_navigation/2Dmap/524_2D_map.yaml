@@ -1,0 +1,7 @@
+image: 524_2D_map.pgm
+resolution: 0.025000
+origin: [-1.800000, -4.725000, -nan]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

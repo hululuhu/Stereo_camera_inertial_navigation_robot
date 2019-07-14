@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="map_server" pkg="robot_navigation" type="main_map_server" args= "$(find robot_navigation)/2Dmap/zoulang_car_rtime_2D_map_sp8" output="screen">
+    </node>
+</launch>

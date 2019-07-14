@@ -1,0 +1,50 @@
+<launch>
+  <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+
+    <!-- 静态地图为True，如果没有给出初始地图，动态构建地图则为false -->
+    <param name="latch" value="false" />
+    <!-- resolution in meters per pixel 如果有静态地图则忽略该分辨率设置-->
+    <param name="resolution" value="0.1" />
+
+    <!-- 动态构建地图时，需要发布传感器坐标系到全局坐标系的tf变换，从外部SLAM节点或定位节点提供 -->
+    <!-- name of the fixed frame, needs to be "/map" for SLAM -->
+    <param name="frame_id" type="string" value="/camera_left_frame" />
+    <!-- 机器人基础框架 如果地平面检测参数被启用，需要的机器人基部坐标系-->
+    <param name="base_frame_id" type="string" value="/base_footprint" />
+    <!-- 是否应根据不同的高度来编码不同颜色 -->
+    <param name="height_map" type="bool" value="true"/>
+
+    <!-- max range / 传感器探测的最大深度 in meter -->
+    <param name="sensor_model/max_range" value="100.0"/>
+    <!-- 动态构建地图时传感器模型中命中和未命中的概率 -->
+    <param name="sensor_model/hit" type="float" value="0.7"/>
+    <param name="sensor_model/miss" type="float" value="0.4"/>
+    <!-- 动态构建地图时的体素最小和最大概率 -->
+    <param name="sensor_model/max" type="float" value="0.97"/>
+    <param name="sensor_model/min" type="float" value="0.12"/>
+
+    <!-- 是否应在动态构建地图时检测并忽略扫描数据中的地平面 -->
+    <param name="filter_ground" type="bool" value="false"/>
+     <!--空间中的点距离到z方向范围内的点被分割到地平面-->
+    <param name="ground_filter/distance" type="float" value="0.04"/>
+    <!-- 从垂直方向检测该角度范围内的平面为地平面 -->
+    <param name="ground_filter/angle" type="float" value="0.15"/>
+    <!-- 从z=0到该阈值为地面 -->
+    <param name="ground_filter/plane_distance" type="float" value="0.07"/>
+
+    <!-- max/min height for occupancy map, should be in meters -->
+    <!-- 空间点在回调中插入考虑的最大最小高度，在插入或地平面滤波之前，在这个范围之外的任何一个点都将被忽略 -->
+    <!-- 注意，如果使能了ground_filter，这个范围应该包含地平面 -->
+    <param name="pointcloud_max_z" value="100" />
+    <param name="pointcloud_min_z" value="-1.4" />
+
+    <!-- 在这个范围之内的占据体素被考虑进最后的地图中 -->
+    <param name="occupancy_min" value="100" />
+    <param name="occupancy_max" value="-1.4" />
+
+    <!--topic from where pointcloud2 messages are subscribed-->
+    <!-- 输入的传感器话题数据 -->
+    <remap from="cloud_in" to="/pcd_topic_pub" />
+
+  </node>
+</launch>

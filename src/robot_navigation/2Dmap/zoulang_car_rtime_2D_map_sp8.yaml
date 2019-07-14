@@ -1,0 +1,7 @@
+image: zoulang_car_rtime_2D_map_sp8.pgm
+resolution: 0.025000
+origin: [-10.000000, -3.675000, 0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

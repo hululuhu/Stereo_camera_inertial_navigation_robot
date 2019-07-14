@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="ORBvoc_file" default="/home/hulu/ros/expansion/vslam/catkin_ws/src/ORB_SLAM2/Vocabulary/ORBvoc.txt"/>
+    <arg name="config_file" default="/home/hulu/ros/expansion/vslam/catkin_ws/src/ORB_SLAM2/config/mynteye_d_stereo.yaml"/>
+    <arg name="online_rectification" default="false" />
+
+    <include file ="$(find robot_navigation)/launch/map_server.launch"/>
+
+    <node  name="ORB_SLAM2_location" pkg="ORB_SLAM2" type="Stereo" args="$(arg ORBvoc_file) $(arg config_file ) $(arg online_rectification)" output="screen">
+        <remap from="/camera/left/image_raw" to="/mynteye/left/image_rect" />
+        <remap from="/camera/right/image_raw" to="/mynteye/right/image_rect" />
+    </node>
+</launch>

@@ -1,0 +1,7 @@
+image: 524_2D_map_sp8_car_rtime.pgm
+resolution: 0.025000
+origin: [-1.750000, -4.675000, 0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node name="main_Tracking" pkg="robot_navigation" type="main_Tracking" output="screen"> 
+
+        <!--nav para-->
+        <param name="maxForwardSpeed" value="0.5"/>
+        <param name="maxBackSpeed" value="-0.5"/>
+        <param name="maxOmega" value="1.0"/>
+        <param name="maxUpAcc" value="1"/>
+        <param name="maxBackAcc" value="-1"/>
+        <param name="poseChange" value="0.05"/>
+
+        <param name="maxDisErr" value="0.05"/>
+        <param name="fabsdfh" value="0.5"/>
+        <param name="maxAngErr" value="0.05"/>
+
+        <!--位置闭环pid参数，3~5为航向角闭环pid参数-->
+        <param name="DisPID_P" value="20.0"/>
+        <param name="DisPID_I" value="5.0"/>
+        <param name="DisPID_D" value="0.0"/>
+
+        <!--航向角闭环pid参数-->
+        <param name="AngPID_P" value="80.0"/>
+        <param name="AngPID_I" value="5.0"/>
+        <param name="AngPID_D" value="5.0"/>
+
+        <!--导航控制参数参数-->
+        <param name="startNav" value="false"/>
+        <param name="newGoal" value="false"/>
+        <param name="emergeStop" value="false"/>
+    </node>
+
+</launch>
